@@ -97,12 +97,12 @@ class Interfaz:
          'orange'
         ]
 
-        '''group1 = ['Datos obtenidos', #Verde
+        group1 = ['Datos obtenidos', #Verde
          'Datos obtenidos', #Verde
          'Datos obtenidos',  #Azul
          'Datos obtenidos', #Naranja
          'Datos obtenidos'
-        ]'''
+        ]
 
         colo2 = ['black',  #Verde
          'darkgreen', #VerdeOscuro
@@ -111,12 +111,12 @@ class Interfaz:
          'darkorange'
         ]
 
-        '''group2 = ['Datos predictivos',  #Verde
+        group2 = ['Datos predictivos',  #Verde
          'A', #VerdeOscuro
          'B',  #AzulOscuro
          'C', #Naranja
          'D'
-        ]'''
+        ]
 
         #------
 	    #Graficar en 3D como tal
@@ -145,6 +145,8 @@ class Interfaz:
 
         # Graficamos en rojo, los puntos que 
         ax.scatter(XY[:, 0], XY[:, 1], pred, c=np.take(colo2, df[P].values), label='Datos predictivos', s=10)
+        for i in range(1,5):
+            ax.scatter(inicial1-0.5,inicial2-0.5,pred[1],c=colo2[i],label = group2[i],s = 10)
 
         # con esto situamos la "camara" con la que visualizamos
         ax.view_init(elev=30., azim=65)
@@ -152,7 +154,7 @@ class Interfaz:
         ax.set_xlabel(X)
         ax.set_ylabel(Y)
         ax.set_zlabel(Z)
-        ax.legend(loc = 1)
+        ax.legend(loc = 2)
         ax.set_title(Y + ' vs ' + X + Z)
         plt.show()
     
