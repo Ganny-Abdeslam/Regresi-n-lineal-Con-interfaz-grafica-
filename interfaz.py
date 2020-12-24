@@ -75,7 +75,8 @@ class Interfaz:
     def data_3d(self, X, Y, Z):
         archivo = filedialog.askopenfilename(filetypes =[('Excel Files', '*.xlsx *.xlsm *.sxc *.ods *.csv *.tsv')]) 
         Matriz = pd.read_excel(archivo)
-        df = pd.DataFrame(Matriz, columns= [X,Y,Z])
+        P = 'Cod'
+        df = pd.DataFrame(Matriz, columns= [X,Y,Z,P])
 
         aux = pd.DataFrame()
 
@@ -89,9 +90,37 @@ class Interfaz:
         lr.fit(XY,m)
         pred = lr.predict(XY)
 
+        colo1 = ['black', #Verde
+         'green', #Verde
+         'blue',  #Azul
+         'red', #Naranja
+         'orange'
+        ]
+
+        '''group1 = ['Datos obtenidos', #Verde
+         'Datos obtenidos', #Verde
+         'Datos obtenidos',  #Azul
+         'Datos obtenidos', #Naranja
+         'Datos obtenidos'
+        ]'''
+
+        colo2 = ['black',  #Verde
+         'darkgreen', #VerdeOscuro
+         'darkblue',  #AzulOscuro
+         'darkred', #Naranja
+         'darkorange'
+        ]
+
+        '''group2 = ['Datos predictivos',  #Verde
+         'A', #VerdeOscuro
+         'B',  #AzulOscuro
+         'C', #Naranja
+         'D'
+        ]'''
+
         #------
-	#Graficar en 3D como tal
-	#------
+	    #Graficar en 3D como tal
+	    #------
 
         fig = plt.figure()
         ax = Axes3D(fig)
@@ -112,10 +141,10 @@ class Interfaz:
         ax.plot_surface(xx, yy, z, alpha=0.2, cmap='hot')
 
         # Graficamos en azul los puntos en 3D
-        ax.scatter(XY[:, 0], XY[:, 1], df[Z].values, c='blue', label='Datos obtenidos', s=8)
+        ax.scatter(XY[:, 0], XY[:, 1], df[Z].values, c=np.take(colo1, df[P].values), label='Datos obtenidos', s=10)
 
         # Graficamos en rojo, los puntos que 
-        ax.scatter(XY[:, 0], XY[:, 1], pred, c='red', label='Datos a los que debe tender', s=8)
+        ax.scatter(XY[:, 0], XY[:, 1], pred, c=np.take(colo2, df[P].values), label='Datos predictivos', s=10)
 
         # con esto situamos la "camara" con la que visualizamos
         ax.view_init(elev=30., azim=65)
@@ -123,7 +152,7 @@ class Interfaz:
         ax.set_xlabel(X)
         ax.set_ylabel(Y)
         ax.set_zlabel(Z)
-        ax.legend()
+        ax.legend(loc = 1)
         ax.set_title(Y + ' vs ' + X + Z)
         plt.show()
     
