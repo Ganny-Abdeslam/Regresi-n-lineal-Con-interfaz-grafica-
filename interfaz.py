@@ -97,14 +97,14 @@ class Interfaz:
          'orange'
         ]
 
-        group1 = ['Datos obtenidos', #Verde
-         'Datos obtenidos', #Verde
-         'Datos obtenidos',  #Azul
-         'Datos obtenidos', #Naranja
-         'Datos obtenidos'
+        group1 = ['Datos Obtenidos',  #Verde
+         'A Obtenidos', #VerdeOscuro
+         'B Obtenidos',  #AzulOscuro
+         'C Obtenidos', #Naranja
+         'D Obtenidos',
         ]
 
-        colo2 = ['black',  #Verde
+        colo2 = ['gainsboro',  #Verde
          'darkgreen', #VerdeOscuro
          'darkblue',  #AzulOscuro
          'darkred', #Naranja
@@ -112,10 +112,10 @@ class Interfaz:
         ]
 
         group2 = ['Datos predictivos',  #Verde
-         'A', #VerdeOscuro
-         'B',  #AzulOscuro
-         'C', #Naranja
-         'D'
+         'A Predictivos', #VerdeOscuro
+         'B Predictivos',  #AzulOscuro
+         'C Predictivos', #Naranja
+         'D Predictivos'
         ]
 
         #------
@@ -141,12 +141,15 @@ class Interfaz:
         ax.plot_surface(xx, yy, z, alpha=0.2, cmap='hot')
 
         # Graficamos en azul los puntos en 3D
-        ax.scatter(XY[:, 0], XY[:, 1], df[Z].values, c=np.take(colo1, df[P].values), label='Datos obtenidos', s=10)
+        ax.scatter(XY[:, 0], XY[:, 1], df[Z].values, c=np.take(colo1, df[P].values), s=10)
 
         # Graficamos en rojo, los puntos que 
-        ax.scatter(XY[:, 0], XY[:, 1], pred, c=np.take(colo2, df[P].values), label='Datos predictivos', s=10)
+        ax.scatter(XY[:, 0], XY[:, 1], pred, c=np.take(colo2, df[P].values), s=10)
+
+        #Generar la leyenda de los datos
         for i in range(1,5):
-            ax.scatter(inicial1-0.5,inicial2-0.5,pred[1],c=colo2[i],label = group2[i],s = 10)
+            ax.scatter(inicial1-0.5,inicial2-0.5,pred[1],c=colo1[i],label = group1[i],s = 8)
+            ax.scatter(inicial1-0.5,inicial2-0.5,pred[1],c=colo2[i],label = group2[i],s = 8)
 
         # con esto situamos la "camara" con la que visualizamos
         ax.view_init(elev=30., azim=65)
@@ -154,7 +157,7 @@ class Interfaz:
         ax.set_xlabel(X)
         ax.set_ylabel(Y)
         ax.set_zlabel(Z)
-        ax.legend(loc = 2)
+        ax.legend(loc='upper center', ncol = 4)
         ax.set_title(Y + ' vs ' + X + Z)
         plt.show()
     
